@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Setup Signature - Digital Sign</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f0f4f8; }
+        .navbar { background: #1a56db; color: white; padding: 15px 30px; display: flex; justify-content: space-between; }
+        .navbar h1 { font-size: 18px; }
+        .navbar a { color: white; text-decoration: none; }
+        .container { max-width: 600px; margin: 40px auto; padding: 0 20px; }
+        .card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
+        h2 { color: #333; margin-bottom: 20px; }
+        .upload-area { border: 2px dashed #1a56db; border-radius: 10px; padding: 40px; text-align: center; margin: 20px 0; cursor: pointer; }
+        .upload-area p { color: #666; font-size: 14px; margin-top: 10px; }
+        input[type="file"] { display: none; }
+        button { width: 100%; padding: 12px; background: #1a56db; color: white; border: none; border-radius: 8px; font-size: 15px; cursor: pointer; margin-top: 10px; }
+        #preview { max-width: 200px; margin: 10px auto; display: none; border: 1px solid #eee; border-radius: 6px; }
+        .info { background: #e8f0fe; padding: 12px; border-radius: 8px; font-size: 13px; color: #333; margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>🔐 DigiSign SI </h1>
+        <a href="/">← Kembali</a>
+    </div>
+    <div class="container">
+        <div class="card">
+            <h2>✍️ Set Signature</h2>
+            <div class="info">Upload gambar tanda tangan kamu dalam format PNG atau JPG. Pastikan background putih/transparan.</div>
+            <form method="POST" enctype="multipart/form-data">
+                <label for="sigInput">
+                    <div class="upload-area" onclick="document.getElementById('sigInput').click()">
+                        <div style="font-size:40px;">📤</div>
+                        <p>Klik untuk upload gambar tanda tangan</p>
+                        <p style="font-size:12px;">(PNG, JPG - max 2MB)</p>
+                    </div>
+                </label>
+                <input type="file" id="sigInput" name="signature" accept="image/*" onchange="previewImage(this)" required>
+                <img id="preview" src="" alt="Preview">
+                <button type="submit">💾 Simpan Tanda Tangan</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        function previewImage(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    var preview = document.getElementById('preview');
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+</body>
+</html>

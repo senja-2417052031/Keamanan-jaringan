@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Setup OTP - Digital Sign</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f0f4f8; }
+        .navbar { background: #1a56db; color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; }
+        .navbar h1 { font-size: 18px; }
+        .navbar a { color: white; text-decoration: none; }
+        .container { max-width: 600px; margin: 40px auto; padding: 0 20px; }
+        .card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
+        h2 { color: #333; margin-bottom: 20px; }
+        .qr-box { text-align: center; margin: 20px 0; }
+        .qr-box img { width: 200px; border: 2px solid #eee; border-radius: 8px; padding: 10px; }
+        .secret-box { background: #f8f9fa; padding: 12px; border-radius: 6px; font-family: monospace; text-align: center; margin: 15px 0; color: #333; }
+        input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; }
+        button { width: 100%; padding: 12px; background: #1a56db; color: white; border: none; border-radius: 8px; font-size: 15px; cursor: pointer; margin-top: 10px; }
+        .error { background: #fee; color: #c00; padding: 10px; border-radius: 6px; margin-bottom: 10px; }
+        .steps { background: #e8f0fe; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-size: 13px; color: #333; }
+        .steps li { margin: 5px 0 5px 20px; }
+        a { color: #1a56db; }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>🔐 DigiSign SI </h1>
+        <a href="/">← Kembali</a>
+    </div>
+    <div class="container">
+        <div class="card">
+            <h2>📱 Setup OTP</h2>
+            <div class="steps">
+                <strong>Langkah-langkah:</strong>
+                <ol>
+                    <li>Install Google Authenticator di HP kamu</li>
+                    <li>Scan QR Code di bawah ini</li>
+                    <li>Masukkan kode 6 digit yang muncul</li>
+                </ol>
+            </div>
+            {% if error %}<div class="error">{{ error }}</div>{% endif %}
+            <div class="qr-box">
+                <img src="/{{ qr_path }}" alt="QR Code">
+                <p style="margin-top:10px; font-size:13px; color:#666;">Atau masukkan kode manual:</p>
+                <div class="secret-box">{{ secret }}</div>
+            </div>
+            <form method="POST" action="/verify_otp">
+                <label style="font-size:13px; font-weight:bold;">Masukkan kode OTP:</label>
+                <input type="text" name="otp" placeholder="6 digit kode OTP" maxlength="6" required>
+                <button type="submit">Verify OTP</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

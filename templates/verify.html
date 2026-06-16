@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Verifikasi - DigiSign SI</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f0f4f8; }
+        .navbar { background: #1a56db; color: white; padding: 15px 30px; display: flex; justify-content: space-between; }
+        .navbar h1 { font-size: 18px; }
+        .navbar a { color: white; text-decoration: none; }
+        .container { max-width: 650px; margin: 40px auto; padding: 0 20px; }
+        .card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
+        h2 { color: #333; margin-bottom: 20px; }
+        .upload-area { border: 2px dashed #1a56db; border-radius: 10px; padding: 40px; text-align: center; cursor: pointer; margin: 20px 0; }
+        .upload-area p { color: #666; font-size: 14px; margin-top: 10px; }
+        button { width: 100%; padding: 13px; background: #1a56db; color: white; border: none; border-radius: 8px; font-size: 15px; cursor: pointer; margin-top: 10px; }
+        button:hover { background: #1440a0; }
+        .result-valid { background: #e6f9f0; border: 2px solid #00b050; border-radius: 10px; padding: 20px; margin-top: 20px; text-align: center; }
+        .result-invalid { background: #fff0f0; border: 2px solid #ff4444; border-radius: 10px; padding: 20px; margin-top: 20px; text-align: center; }
+        .result-valid h3 { color: #00b050; font-size: 20px; margin-bottom: 8px; }
+        .result-invalid h3 { color: #ff4444; font-size: 20px; margin-bottom: 8px; }
+        .result-valid p, .result-invalid p { color: #555; font-size: 14px; }
+        .info { background: #e8f0fe; padding: 12px; border-radius: 8px; font-size: 13px; color: #333; margin-bottom: 15px; }
+        .detail-box { background: #f8f9fa; padding: 15px; border-radius: 8px; margin-top: 12px; text-align: left; font-size: 13px; }
+        .detail-box p { margin: 5px 0; color: #444; }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>🔐 DigiSign SI</h1>
+        <a href="/">← Kembali</a>
+    </div>
+    <div class="container">
+        <div class="card">
+            <h2>✅ Verifikasi Tanda Tangan</h2>
+            <div class="info">Upload dokumen PDF yang sudah ditandatangani untuk memverifikasi keasliannya.</div>
+            <form method="POST" enctype="multipart/form-data">
+                <label for="pdfVerify">
+                    <div class="upload-area" onclick="document.getElementById('pdfVerify').click()">
+                        <div style="font-size:40px;">🔍</div>
+                        <p id="fileName">Klik untuk pilih file PDF yang akan diverifikasi</p>
+                        <p style="font-size:12px;">(Format: PDF)</p>
+                    </div>
+                </label>
+                <input type="file" id="pdfVerify" name="pdf" accept=".pdf" style="display:none" onchange="document.getElementById('fileName').textContent=this.files[0].name" required>
+                <button type="submit">🔍 Verifikasi Dokumen</button>
+            </form>
+
+            {% if result %}
+                {% if result.valid %}
+                <div class="result-valid">
+                    <h3>✅ Tanda Tangan Valid!</h3>
+                    <p>Dokumen ini telah ditandatangani dan terverifikasi.</p>
+                    <div class="detail-box">
+                        <p>📄 <strong>Nama File:</strong> {{ result.filename }}</p>
+                        <p>👤 <strong>Ditandatangani oleh:</strong> {{ result.signed_by }}</p>
+                        <p>📅 <strong>Tanggal:</strong> {{ result.date }}</p>
+                    </div>
+                </div>
+                {% else %}
+                <div class="result-invalid">
+                    <h3>❌ Tanda Tangan Tidak Valid!</h3>
+                    <p>Dokumen ini tidak ditemukan dalam sistem atau belum ditandatangani.</p>
+                </div>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

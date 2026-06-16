@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Home - DigiSign SI</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f0f4f8; }
+        .navbar { background: #1a56db; color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; }
+        .navbar h1 { font-size: 18px; }
+        .navbar a { color: white; text-decoration: none; font-size: 13px; background: rgba(255,255,255,0.2); padding: 6px 14px; border-radius: 6px; }
+        .container { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+        h2 { color: #333; margin-bottom: 25px; }
+        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        .card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); text-align: center; text-decoration: none; color: inherit; transition: transform 0.2s; }
+        .card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.12); }
+        .card .icon { font-size: 40px; margin-bottom: 12px; }
+        .card h3 { color: #1a56db; margin-bottom: 8px; }
+        .card p { color: #666; font-size: 13px; }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>🔐 DigiSign SI</h1>
+        <span>Halo, {{ username }} | <a href="/logout">Logout</a></span>
+    </div>
+    <div class="container">
+        <h2>Dashboard</h2>
+        <div class="grid">
+            <a href="/setup_otp" class="card">
+                <div class="icon">📱</div>
+                <h3>Setup OTP</h3>
+                <p>Atur Google Authenticator untuk keamanan</p>
+            </a>
+            <a href="/setup_signature" class="card">
+                <div class="icon">✍️</div>
+                <h3>Set Signature</h3>
+                <p>Upload gambar tanda tangan kamu</p>
+            </a>
+            <a href="/sign_document" class="card">
+                <div class="icon">📄</div>
+                <h3>Sign Document</h3>
+                <p>Tandatangani dokumen PDF</p>
+            </a>
+            <a href="/history" class="card">
+                <div class="icon">📋</div>
+                <h3>Signing History</h3>
+                <p>Lihat riwayat dokumen yang sudah ditandatangani</p>
+            </a>
+            <a href="/verify" class="card" style="grid-column: span 2;">
+                <div class="icon">✅</div>
+                <h3>Verifikasi Tanda Tangan</h3>
+                <p>Cek keaslian dokumen PDF yang sudah ditandatangani</p>
+            </a>
+        </div>
+    </div>
+</body>
+</html>
